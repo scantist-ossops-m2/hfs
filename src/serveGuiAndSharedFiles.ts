@@ -48,7 +48,10 @@ export const serveGuiAndSharedFiles: Koa.Middleware = async (ctx, next) => {
         ctx.state.uploadPath = decPath
         const dest = uploadWriter(folder, rest, ctx)
         if (dest) {
-            void pipeline(ctx.req, dest)
+            ctx.req.pipe(dest).on('error', err => {
+                ctx.status = HTTP_SERVER_ERROR
+                ctx.body = err.message || String(err)
+            })
             await dest.lockMiddleware  // we need to wait more than just the stream
             ctx.body = {}
         }
