@@ -55,6 +55,8 @@ All the following properties are optional unless otherwise specified.
   Special values "light" and "dark" to declare the theme is (for example) dark and forces HFS to use dark-theme as a base.   
 - `preview: string | string[]` one or more URLs to images you want to show before your plugin is downloaded. (JSON syntax) 
 - `depend: { repo: string, version: number }[]` declare what other plugins this depends on. (JSON syntax)
+- `beforePlugin: string` control the order this plugin is executed relative to another
+- `afterPlugin: string` control the order this plugin is executed relative to another
 - `repo: string | object` pointer to a GitHub repo where this plugin is hosted. (JSON syntax)
     - the string form is for GitHub repos. Example: "rejetto/file-icons"
     - the object form will point to other custom repo. Object properties:
@@ -676,7 +678,8 @@ If you want to override a text regardless of the language, use the special langu
 ## API version history
 
 - 10 (v0.55.0)
-    - HFS.copyTextToClipboard   
+    - HFS.copyTextToClipboard
+    - exports.beforePlugin + afterPlugin
 - 9.6 (v0.54.0)
     - frontend event: showPlay
     - api.addBlock 
